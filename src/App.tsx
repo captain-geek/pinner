@@ -150,24 +150,27 @@ function App() {
     // Use a temporary container to avoid cropping issues with html2canvas and border-radius
     const canvas = await html2canvas(templateRef.current, {
       useCORS: true,
-      scale: 2,
+      scale: 3, // Higher scale for better quality
       backgroundColor: null, // Transparent background
     });
     
     const imgData = canvas.toDataURL('image/png');
-    // A4 size in px (96 DPI) is approx 794x1123
+    
+    // Create PDF in 'in' (inches) for precise physical sizing
     const pdf = new jsPDF({
       orientation: 'portrait',
-      unit: 'px',
+      unit: 'in',
       format: 'a4'
     });
 
-    // Center the image on the A4 page
+    const targetSizeInches = 3;
     const pageWidth = pdf.internal.pageSize.getWidth();
-    const x = (pageWidth - canvas.width / 2) / 2;
-    const y = 40;
+    
+    // Center the 3" circle on the page
+    const x = (pageWidth - targetSizeInches) / 2;
+    const y = 1; // 1 inch from top
 
-    pdf.addImage(imgData, 'PNG', x, y, canvas.width / 2, canvas.height / 2);
+    pdf.addImage(imgData, 'PNG', x, y, targetSizeInches, targetSizeInches);
     pdf.save('pinner-template.pdf');
   };
 
