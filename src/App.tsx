@@ -163,7 +163,7 @@ function App() {
       format: 'a4'
     });
 
-    const targetSizeInches = 3;
+    const targetSizeInches = 3.5;
     const pageWidth = pdf.internal.pageSize.getWidth();
     
     // Center the 3" circle on the page
@@ -175,101 +175,126 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <h1>Pinner - Photo Template App</h1>
+    <div className="container py-4">
+      <header className="mb-4 text-center">
+        <h1 className="display-4">Pinner</h1>
+        <p className="lead">Photo Template App</p>
+      </header>
 
-      <div className="controls">
-        <div className="control-group">
-          <label>1. Upload Photo: </label>
-          <input type="file" accept="image/*" onChange={onSelectFile} />
-        </div>
-
-        <div className="control-group">
-          <label>2. Text Label: </label>
-          <input 
-            type="text" 
-            value={text} 
-            onChange={(e) => setText(e.target.value)} 
-            placeholder="Enter label"
-          />
-        </div>
-
-        <div className="control-group">
-          <label>3. Label Color: </label>
-          <input 
-            type="color" 
-            value={textColor} 
-            onChange={(e) => setTextColor(e.target.value)} 
-          />
-        </div>
-
-        <div className="control-group">
-          <label>Zoom: </label>
-          <input
-            type="range"
-            value={zoom}
-            min={0.1}
-            max={10}
-            step={0.1}
-            aria-labelledby="Zoom"
-            onChange={(e) => setZoom(Number(e.target.value))}
-          />
-        </div>
-
-        <div className="button-group">
-          <button className="reset-btn" onClick={handleReset}>Reset</button>
-          <button className="download-btn" onClick={downloadPdf}>4. Download PDF</button>
-        </div>
-      </div>
-
-      <div className="template-wrapper">
-        <div 
-          className={`template-container ${isDragging ? 'dragging' : ''}`} 
-          ref={templateRef}
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-        >
-          {image ? (
-            <div className="cropper-container">
-              <Cropper
-                image={image}
-                crop={crop}
-                zoom={zoom}
-                aspect={1} // Square template example
-                onCropChange={setCrop}
-                onCropComplete={onCropComplete}
-                onZoomChange={setZoom}
-                showGrid={false}
-                minZoom={0.1}
-                cropShape="round"
-                classes={{
-                  containerClassName: 'custom-cropper-container',
-                  cropAreaClassName: 'custom-crop-area',
-                }}
-              />
+      <div className="row g-4">
+        <div className="col-lg-4">
+          <div className="card shadow-sm h-100">
+            <div className="card-header bg-primary text-white">
+              <h5 className="mb-0">Controls</h5>
             </div>
-          ) : (
-            <div className="placeholder">
-              {isDragging ? "Drop photo here" : "Drag'n'drop photo here or use 'Choose File'"}
+            <div className="card-body">
+              <div className="mb-3">
+                <label className="form-label fw-bold">1. Upload Photo</label>
+                <input className="form-control" type="file" accept="image/*" onChange={onSelectFile} />
+                <p className="text-muted small">Or drop a photo on the template area.</p>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label fw-bold">2. Text Label</label>
+                <input 
+                  className="form-control"
+                  type="text" 
+                  value={text} 
+                  onChange={(e) => setText(e.target.value)} 
+                  placeholder="Enter label"
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label fw-bold">3. Label Color</label>
+                <input 
+                  className="form-control form-control-color w-100"
+                  type="color" 
+                  value={textColor} 
+                  onChange={(e) => setTextColor(e.target.value)} 
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="form-label fw-bold">Zoom</label>
+                <input
+                  className="form-range"
+                  type="range"
+                  value={zoom}
+                  min={0.1}
+                  max={10}
+                  step={0.1}
+                  aria-labelledby="Zoom"
+                  onChange={(e) => setZoom(Number(e.target.value))}
+                />
+              </div>
+
+              <div className="d-grid gap-2">
+                <button className="btn btn-primary btn-lg" onClick={downloadPdf}>4. Download PDF</button>
+                <button className="btn btn-outline-secondary" onClick={handleReset}>Reset</button>
+              </div>
             </div>
-          )}
-          <div className="dotted-guide" />
-          <div 
-            className="text-overlay" 
-            style={{ 
-              color: textColor,
-              left: `${textPos.x}px`,
-              top: `${textPos.y}px`
-            }}
-            onMouseDown={onTextMouseDown}
-          >
-            {text}
+          </div>
+        </div>
+
+        <div className="col-lg-8">
+          <div className="card shadow-sm h-100">
+            <div className="card-body d-flex flex-column align-items-center justify-content-center bg-light rounded overflow-hidden">
+              <div className="template-wrapper p-2 bg-white shadow-sm mb-3">
+                <div 
+                  className={`template-container ${isDragging ? 'dragging' : ''}`} 
+                  ref={templateRef}
+                  onDragOver={onDragOver}
+                  onDragLeave={onDragLeave}
+                  onDrop={onDrop}
+                >
+                  {image ? (
+                    <div className="cropper-container">
+                      <Cropper
+                        image={image}
+                        crop={crop}
+                        zoom={zoom}
+                        aspect={1} // Square template example
+                        onCropChange={setCrop}
+                        onCropComplete={onCropComplete}
+                        onZoomChange={setZoom}
+                        showGrid={false}
+                        minZoom={0.1}
+                        cropShape="round"
+                        classes={{
+                          containerClassName: 'custom-cropper-container',
+                          cropAreaClassName: 'custom-crop-area',
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="placeholder text-muted">
+                      {isDragging ? "Drop photo here" : "Drag'n'drop photo here or use 'Choose File'"}
+                    </div>
+                  )}
+                  <div className="dotted-guide" />
+                  <div 
+                    className="text-overlay" 
+                    style={{ 
+                      color: textColor,
+                      left: `${textPos.x}px`,
+                      top: `${textPos.y}px`
+                    }}
+                    onMouseDown={onTextMouseDown}
+                  >
+                    {text}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="alert alert-info py-2 px-3 mb-0 w-100 text-center small">
+                <i className="bi bi-info-circle me-2"></i>
+                Drag image to reposition. Drag text to move. Use slider to zoom.
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      
-      <p className="hint">Drag image to reposition. Drag the text label to move it. Use slider to zoom. You can also drag'n'drop a new image onto the circle.</p>
     </div>
   );
 }

@@ -1,71 +1,8 @@
-.app-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  background: #f4f4f4;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.control-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-.control-group label {
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.button-group {
-  display: flex;
-  gap: 10px;
-  align-self: flex-end;
-}
-
-.download-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.download-btn:hover {
-  background-color: #0056b3;
-}
-
-.reset-btn {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.reset-btn:hover {
-  background-color: #5a6268;
-}
+/* Bootstrap handled styles below */
 
 .template-wrapper {
   padding: 10px;
   background: white;
-  border: 1px solid #ddd;
 }
 
 .template-container {
@@ -73,10 +10,15 @@
   width: 400px;
   height: 400px;
   background-color: #eee;
-  overflow: hidden; /* This fulfills the requirement: overflow being hidden outside of the template shape */
-  border-radius: 50%; /* Circle shape */
+  overflow: hidden; 
+  border-radius: 50%;
   border: 5px solid #333;
   transition: border-color 0.2s, background-color 0.2s;
+  cursor: grab;
+}
+
+.template-container:active {
+  cursor: grabbing;
 }
 
 .template-container.dragging {
@@ -136,7 +78,6 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #888;
 }
 
 .hint {
