@@ -1,0 +1,132 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.control-group label {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-self: flex-end;
+}
+
+.download-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+
+.reset-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #5a6268;
+}
+
+.template-wrapper {
+  padding: 10px;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+.template-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #eee;
+  overflow: hidden; /* This fulfills the requirement: overflow being hidden outside of the template shape */
+  border-radius: 50%; /* Circle shape */
+  border: 5px solid #333;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.template-container.dragging {
+  border-color: #007bff;
+  background-color: #e7f1ff;
+}
+
+.cropper-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Hide the default react-easy-crop overlay and ensure full transparency inside the circle */
+.custom-cropper-container > div:nth-child(2) {
+  display: none !important;
+}
+
+.custom-crop-area {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure the image is visible */
+.custom-cropper-container img {
+  pointer-events: auto;
+}
+
+.text-overlay {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  cursor: move;
+  user-select: none;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+}
+
+.hint {
+  font-style: italic;
+  color: #666;
+}
