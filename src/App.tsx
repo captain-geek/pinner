@@ -251,6 +251,7 @@ function App() {
               {isDragging ? "Drop photo here" : "Drag'n'drop photo here or use 'Choose File'"}
             </div>
           )}
+          <div className="dotted-guide" />
           <div 
             className="text-overlay" 
             style={{ 
